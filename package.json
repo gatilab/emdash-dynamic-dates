@@ -27,7 +27,7 @@
   ],
   "author": "Gatilab (https://gatilab.com)",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://gatilab.com/",
+  "homepage": "https://github.com/gatilab/emdash-dynamic-dates#readme",
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit && astro check --root . --tsconfig ./tsconfig.json",
@@ -50,5 +50,13 @@
   },
   "sideEffects": [
     "**/*.astro"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gatilab/emdash-dynamic-dates.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gatilab/emdash-dynamic-dates/issues"
+  },
+  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b"
 }
