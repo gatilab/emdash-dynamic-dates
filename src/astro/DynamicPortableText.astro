@@ -1,0 +1,23 @@
+---
+/**
+ * Drop-in replacement for EmDash's <PortableText> that resolves dynamic-date
+ * shortcodes first. Pass the entry's dates to support [datepublished] and
+ * [datemodified]. In visual-editing mode the raw value is passed through, so
+ * editors always edit "[year]", never "2026".
+ */
+import { PortableText } from "emdash/ui";
+
+import { resolvePortableText } from "../core/portable-text.js";
+import { renderOptions, type RenderOverrides } from "./options.js";
+
+type Props = RenderOverrides & {
+	value: unknown;
+	[key: string]: unknown;
+};
+
+const { value, published, modified, timeZone, locale, dateFormat, now, ...rest } = Astro.props;
+const options = await renderOptions({ published, modified, timeZone, locale, dateFormat, now } as RenderOverrides);
+const resolved = resolvePortableText(value, options);
+---
+
+<PortableText value={resolved as any} {...rest} />

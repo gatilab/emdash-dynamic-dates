@@ -1,0 +1,39 @@
+---
+/** Renderer for the "Dynamic date" block. */
+import { DateRenderer } from "../core/renderer.js";
+import { renderOptions } from "./options.js";
+
+interface Props {
+	node: {
+		_type: "dynamicDate";
+		dateType?: string;
+		date?: string;
+		format?: string;
+		region?: string;
+		prefix?: string;
+		suffix?: string;
+		/** Precomputed by resolvePortableText when entry dates are known. */
+		_value?: string;
+	};
+}
+
+const { node } = Astro.props;
+const type = node.dateType || "year";
+const value = node._value ?? new DateRenderer(await renderOptions()).render(type, {
+	date: node.date,
+	format: node.format,
+	region: node.region,
+});
+---
+
+{value && (
+	<p class="dd-date" data-dd-type={type}>
+		{node.prefix && <>{node.prefix} </>}<time>{value}</time>{node.suffix && <> {node.suffix}</>}
+	</p>
+)}
+
+<style>
+	.dd-date time {
+		font-variant-numeric: tabular-nums;
+	}
+</style>

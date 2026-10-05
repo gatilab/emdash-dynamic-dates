@@ -1,0 +1,74 @@
+---
+/**
+ * Renderer for the "Countdown" block. The server renders the count; a small
+ * script recomputes it in the visitor's browser (in the site's time zone),
+ * so a cached page never shows yesterday's number.
+ */
+import { DateEngine } from "../core/engine.js";
+import { renderOptions } from "./options.js";
+
+interface Props {
+	node: {
+		_type: "countdown";
+		date?: string;
+		rule?: string;
+		mode?: "until" | "since";
+		repeat?: boolean;
+		prefix?: string;
+		suffix?: string;
+		labelSingular?: string;
+		labelPlural?: string;
+	};
+}
+
+const { node } = Astro.props;
+const options = await renderOptions();
+const engine = new DateEngine(options);
+const mode = node.mode === "since" ? "since" : "until";
+const target = node.repeat || node.rule || /^\d{2}-\d{2}$/.test(node.date ?? "")
+	? engine.nextOccurrence(node.date ?? "", node.rule ?? "")
+	: engine.parseDate(node.date ?? "");
+const today = engine.today();
+const raw = target ? (mode === "until" ? engine.calendarDays(today, target) : engine.calendarDays(target, today)) : null;
+const days = raw === null ? null : Math.max(0, raw);
+const singular = node.labelSingular || "day";
+const plural = node.labelPlural || "days";
+const iso = target ? `${target.year}-${String(target.month).padStart(2, "0")}-${String(target.day).padStart(2, "0")}` : "";
+---
+
+{days !== null && (
+	<p class="dd-countdown" data-dd-countdown data-target={iso} data-mode={mode} data-tz={engine.timeZone} data-singular={singular} data-plural={plural}>
+		{node.prefix && <>{node.prefix} </>}<strong class="dd-countdown__number">{days}</strong>{" "}
+		<span class="dd-countdown__label">{days === 1 ? singular : plural}</span>{node.suffix && <> {node.suffix}</>}
+	</p>
+)}
+
+<script>
+	function todayIn(timeZone: string): number {
+		const iso = new Intl.DateTimeFormat("en-CA", { timeZone }).format(new Date());
+		return Date.parse(`${iso}T00:00:00Z`);
+	}
+	for (const el of document.querySelectorAll<HTMLElement>("[data-dd-countdown]")) {
+		const { target, mode, tz, singular, plural } = el.dataset;
+		if (!target) continue;
+		let today: number;
+		try {
+			today = todayIn(tz || "UTC");
+		} catch {
+			continue;
+		}
+		const t = Date.parse(`${target}T00:00:00Z`);
+		const days = Math.max(0, Math.round((mode === "since" ? today - t : t - today) / 86_400_000));
+		const number = el.querySelector(".dd-countdown__number");
+		const label = el.querySelector(".dd-countdown__label");
+		if (number) number.textContent = String(days);
+		if (label) label.textContent = days === 1 ? (singular ?? "day") : (plural ?? "days");
+	}
+</script>
+
+<style>
+	.dd-countdown__number {
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+	}
+</style>

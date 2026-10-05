@@ -1,0 +1,54 @@
+{
+  "name": "@gatilab/emdash-dynamic-dates",
+  "version": "0.1.0",
+  "description": "Dynamic dates for EmDash: [year], [monthyear], [age], countdowns and 40 more shortcodes that stay current without republishing. Port of the Dynamic Month & Year into Posts WordPress plugin.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./core": "./src/core/index.ts",
+    "./astro": "./src/astro/index.ts"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "emdash",
+    "emdash-plugin",
+    "astro",
+    "cms",
+    "shortcodes",
+    "dynamic-date",
+    "year",
+    "seo"
+  ],
+  "author": "Gatilab (https://gatilab.com)",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://gatilab.com/",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit && astro check --root . --tsconfig ./tsconfig.json",
+    "prepublishOnly": "pnpm typecheck && pnpm test"
+  },
+  "peerDependencies": {
+    "astro": ">=6.0.0",
+    "emdash": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/react": "^6.0.5",
+    "@types/node": "^24.0.0",
+    "astro": "^7.3.2",
+    "emdash": "^1.1.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.10"
+  },
+  "sideEffects": [
+    "**/*.astro"
+  ]
+}

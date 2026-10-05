@@ -1,0 +1,12 @@
+---
+/** Resolve shortcodes in a plain string, e.g. a title: <DynamicText text={post.data.title} /> */
+import { resolveShortcodes } from "../core/shortcodes.js";
+import { renderOptions, type RenderOverrides } from "./options.js";
+
+type Props = RenderOverrides & { text: string | null | undefined };
+
+const { text, ...overrides } = Astro.props;
+const output = text ? resolveShortcodes(text, await renderOptions(overrides)) : "";
+---
+
+{output}
