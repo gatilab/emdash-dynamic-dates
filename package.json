@@ -26,7 +26,7 @@
     "seo"
   ],
   "author": "Gatilab (https://gatilab.com)",
-  "license": "GPL-2.0-or-later",
+  "license": "MIT",
   "homepage": "https://github.com/gatilab/emdash-dynamic-dates#readme",
   "scripts": {
     "test": "vitest run",

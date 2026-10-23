@@ -121,4 +121,4 @@ Handlers get the attributes, a context with `ctx.renderer` (the date renderer), 
 
 ## License
 
-GPL-2.0-or-later, the same as the WordPress plugin it ports.
+MIT. See [LICENSE](./LICENSE).
