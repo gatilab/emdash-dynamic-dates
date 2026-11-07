@@ -28,7 +28,7 @@ import { configureDynamicDates, type DynamicDatesOptions } from "./core/config.j
 import { hasDynamicContent, resolveShortcodes } from "./core/shortcodes.js";
 
 export const PLUGIN_ID = "dynamic-dates";
-export const PLUGIN_VERSION = "0.1.0";
+export const PLUGIN_VERSION = "0.1.1";
 export const PACKAGE_NAME = "@gatilab/emdash-dynamic-dates";
 
 /** Descriptor factory for the `plugins` array of the emdash() integration. */

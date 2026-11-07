@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 (2026-11-07)
+
+- Relicensed under the MIT License (previously GPL-2.0-or-later).
+
 ## 0.1.0 (2026-10-05)
 
 First release: an EmDash port of Dynamic Month & Year into Posts 1.8.1.

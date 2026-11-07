@@ -1,6 +1,6 @@
 {
   "name": "@gatilab/emdash-dynamic-dates",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dynamic dates for EmDash: [year], [monthyear], [age], countdowns and 40 more shortcodes that stay current without republishing. Port of the Dynamic Month & Year into Posts WordPress plugin.",
   "type": "module",
   "main": "./src/index.ts",
